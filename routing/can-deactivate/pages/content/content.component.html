@@ -1,0 +1,48 @@
+<button (click)="save()">Saved data</button>
+<div class="page page--nodes nodes">
+  <div class="page__title">
+    <h1>Content</h1>
+    <div class="page__total">{{ nodes.length }} Total</div>
+  </div>
+  <div class="page__desc">
+    <div class="page__desc-left">
+      <p>Удобочитаемое название типа материалов. Этот текст будет показан в списке на странице создания материала. Рекомендуется использовать названия, начинающиеся с прописной буквы и состоящие только из букв, цифр и пробелов. Название должно быть уникальным.</p>
+    </div>
+    <div class="page__desc-right">
+      <app-primary-button [cssClasses]="'btn--add'" (click)="onNodeCreate()">Add Node Type</app-primary-button>
+    </div>
+  </div>
+  <app-admin-table [tablePattern]="tablePatterns.Auto">
+    <app-admin-table-row [isRowHeader]="true">
+      <app-admin-table-cell>Title</app-admin-table-cell>
+      <app-admin-table-cell>Node type</app-admin-table-cell>
+      <app-admin-table-cell>Author</app-admin-table-cell>
+      <app-admin-table-cell>Status</app-admin-table-cell>
+      <app-admin-table-cell>Updated</app-admin-table-cell>
+      <app-admin-table-cell>Actions</app-admin-table-cell>
+    </app-admin-table-row>
+    <app-admin-table-row *ngFor="let node of nodes">
+      <app-admin-table-cell>
+        <div class="admin-types__node-title">
+          <a routerLink='/{{ node.url }}'>{{ node.title }}</a>
+        </div>
+      </app-admin-table-cell>
+      <app-admin-table-cell>
+        <div class="admin-types__node-title">{{ node.nodeType.name }}</div>
+      </app-admin-table-cell>
+      <app-admin-table-cell>
+        <div class="admin-types__node-title">Author</div>
+      </app-admin-table-cell>
+      <app-admin-table-cell>
+        <div class="admin-types__node-title">Status</div>
+      </app-admin-table-cell>
+      <app-admin-table-cell>
+        <div class="admin-types__node-title">Updated</div>
+      </app-admin-table-cell>
+      <app-admin-table-cell [cssClasses]="['actions']">
+        <button class="actions__item actions__item--edit" (click)="onNodeEdit(node.id)">Edit</button>
+        <button class="actions__item actions__item--delete" (click)="onNodeDelete(node.id, node.title)">Delete</button>
+      </app-admin-table-cell>
+    </app-admin-table-row>
+  </app-admin-table>
+</div>
